@@ -19,5 +19,22 @@ class ThoughtModel {
         }
     }
 
-    
+    static async findAll() {
+        try {
+            const [rows] = await db.query('SELECT * FROM thoughts');
+            return rows; // Return all thoughts
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async delete(thoughtId) {
+        try {
+            await db.query('DELETE FROM thoughts WHERE id = ?', [thoughtId]);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
+
+module.exports = ThoughtModel;
