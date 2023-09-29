@@ -1,51 +1,62 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Touchable } from "react-native";
-import { Ionicons } from '@expo/vector-icons'
+import { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Touchable,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.appTitle}>YourThoughts</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="#B0B0B0"
-        value={email}
-        onChangeText={setEmail} 
-      />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.appTitle}>YourThoughts</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#B0B0B0"
+          value={email}
+          onChangeText={setEmail}
+        />
         <TextInput
           style={styles.input}
           placeholder="Password"
           placeholderTextColor="#B0B0B0"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry 
+          secureTextEntry
         />
         <TouchableOpacity>
           <Text style={styles.forgotPassword}>Forgotten password?</Text>
         </TouchableOpacity>
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-      <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine}/>
-        <Text style={styles.dividerText}>or</Text>
-        <View style={styles.dividerLine}/>
-      </View>
-      <TouchableOpacity style={styles.googleButton}>
-        <Ionicons name="logo-google" size={24} color="#000"/>
-        <Text style={styles.googleButtonText}>Login with Google</Text>
-      </TouchableOpacity>
-      <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={styles.signupLink}>Sign up</Text>
+        <TouchableOpacity style={styles.loginButton}>
+          <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
+        <View style={styles.dividerContainer}>
+          <View style={styles.dividerLine} />
+          <Text style={styles.dividerText}>or</Text>
+          <View style={styles.dividerLine} />
+        </View>
+        <TouchableOpacity style={styles.googleButton}>
+          <Ionicons name="logo-google" size={24} color="#000" />
+          <Text style={styles.googleButtonText}>Login with Google</Text>
+        </TouchableOpacity>
+        <View style={styles.signupContainer}>
+          <Text style={styles.signupText}>Don't have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <Text style={styles.signupLink}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -57,72 +68,71 @@ const styles = StyleSheet.create({
   },
   appTitle: {
     fontSize: 40,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 250,
-    marginTop: 100,
-    alignSelf: 'center',
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    marginVertical: 100,
+    alignSelf: "center",
   },
   input: {
-    backgroundColor: '#333',
-    color: '#fff',
+    backgroundColor: "#333",
+    color: "#fff",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 5,
     marginBottom: 10,
   },
   forgotPassword: {
-    color: '#B0B0B0',
-    alignSelf: 'flex-end',
+    color: "#B0B0B0",
+    alignSelf: "flex-end",
     marginBottom: 10,
   },
   loginButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: "#007BFF",
     padding: 15,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
   },
   loginButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
   dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 15,
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#B0B0B0',
+    backgroundColor: "#B0B0B0",
   },
   dividerText: {
-    color: '#B0B0B0',
+    color: "#B0B0B0",
     paddingHorizontal: 10,
   },
   googleButton: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    backgroundColor: "#fff",
     padding: 15,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   googleButtonText: {
     marginLeft: 10,
-    color: '#000',
+    color: "#000",
   },
   signupContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 15,
   },
   signupText: {
-    color: '#B0B0B0',
+    color: "#B0B0B0",
   },
   signupLink: {
-    color: '#007BFF'
+    color: "#007BFF",
   },
 });
 
