@@ -19,7 +19,7 @@ const ShareThoughtScreen = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.iconContainer}>
+        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate("Feed")}>
           <Ionicons name="arrow-forward" size={28} color="white" />
         </TouchableOpacity>
         <Text style={styles.title}>Share a thought to see others</Text>

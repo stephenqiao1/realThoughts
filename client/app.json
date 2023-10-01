@@ -6,6 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "extra": {
+      "IP_ADDRESS": "128.189.90.199"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

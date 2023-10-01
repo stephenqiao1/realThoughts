@@ -4,9 +4,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import NameScreen from "./screens/NameScreen";
 import ShareThoughtScreen from "./screens/ShareThoughtScreen";
+import FeedScreen from "./screens/FeedScreen";
 import { Ionicons } from '@expo/vector-icons';
+import InboxScreen from "./screens/InboxScreen";
+import AddFriendsScreen from "./screens/AddFriendsScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -59,15 +62,36 @@ export default function App() {
           }} 
         />
         <Stack.Screen
-          name="Name"
-          component={NameScreen}
+          name="ShareThought"
+          component={ShareThoughtScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Feed"
+          component={FeedScreen}
           options={{
             headerShown: false,
           }} 
         />
-        <Stack.Screen
-          name="ShareThought"
-          component={ShareThoughtScreen}
+        <Stack.Screen 
+          name="Inbox"
+          component={InboxScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen 
+          name="AddFriends"
+          component={AddFriendsScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen 
+          name="Profile"
+          component={ProfileScreen}
           options={{
             headerShown: false,
           }}

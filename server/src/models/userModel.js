@@ -1,16 +1,15 @@
 const db = require('../../config/db');
-const { use } = require('../routes/userRoutes');
 
 class UserModel {
     // Create a new user
     static async create(username, email, hashedPassword) {
         try {
             const [result] = await db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
-            return result.id
+            console.log("DB Result:", result);
+            return result.insertId;
         } catch (error) {
             throw error;
         }
-
     }
 
     // Find a user by ID
