@@ -4,7 +4,7 @@ exports.createThought = async (req, res) => {
     try {
         const { userId, content } = req.body;
         const thoughtId = await ThoughtModel.create(userId, content);
-        res.status(201).json({ thoughtId });
+        res.status(201).json({ success: true, thoughtId });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

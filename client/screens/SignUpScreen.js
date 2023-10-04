@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -10,15 +10,18 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios";
+import UserContext from "../context/userContext";
 
 const SignUpScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(UserContext);
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const api = axios.create({
-    baseURL: 'http://128.189.90.199:5000/api',
+    baseURL: 'http://128.189.91.44:5000/api',
   });
 
   const handleSignUp = async () => {
@@ -39,6 +42,7 @@ const SignUpScreen = ({ navigation }) => {
       console.log(response.data);
 
       if (response.data.success) {
+        setUser({email: email, username: username, userId: response.data.userId});
         navigation.navigate("ShareThought");
       } else {
         Alert.alert("Error", response.data.message);

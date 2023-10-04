@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,19 +7,48 @@ import {
   StyleSheet,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
+import UserContext from "../context/userContext";
 
 const ShareThoughtScreen = ({ navigation }) => {
+  const api = axios.create({
+    baseURL: 'http://128.189.91.44:5000/api',
+  });
+
+  const { user, setUser } = useContext(UserContext);
+
   const [thought, setThought] = useState("");
   const [promptVisible, setPromptVisible] = useState(false);
 
   const dailyPrompt = "Write about a memorable moment in your life.";
 
+  const handleShareThought = async () => {
+    try {
+      const response = await api.post('/thoughts/create', {
+        userId: user.userId,
+        content: thought,
+      });
+
+      if (response.data.success) {
+        Alert.alert("Success", "Thought shared successfully!");
+      } else {
+        Alert.alert("Error", "Failed to share thought.");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate("Feed")}>
+        <TouchableOpacity style={styles.iconContainer} onPress={() => {
+          handleShareThought();
+          navigation.navigate("Feed");
+          }}>
           <Ionicons name="arrow-forward" size={28} color="white" />
         </TouchableOpacity>
         <Text style={styles.title}>Share a thought to see others</Text>
