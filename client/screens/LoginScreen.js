@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,12 +7,41 @@ import {
   TextInput,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import * as Google from 'expo-google-app-auth';
+import Constants from 'expo-constants';
+import UserContext from "../context/userContext";
+import axios from 'axios';
 
 const LoginScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(UserContext);
+
+  const api = axios.create({
+    baseURL: `http://${Constants.expoConfig.extra.IP_ADDRESS}:5000/api`,
+  });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await api.post('/users/login', {
+        email,
+        password,
+      });
+
+      if (response.data.success) {
+        setUser({ userId: response.data.userId});
+        navigation.navigate('Feed');
+      } else {
+        Alert.alert('Error', response.data.message);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong. Please try again.');
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -36,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text style={styles.forgotPassword}>Forgotten password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
         <View style={styles.dividerContainer}>
@@ -44,10 +73,10 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.dividerText}>or</Text>
           <View style={styles.dividerLine} />
         </View>
-        <TouchableOpacity style={styles.googleButton}>
+        {/* <TouchableOpacity style={styles.googleButton}>
           <Ionicons name="logo-google" size={24} color="#000" />
           <Text style={styles.googleButtonText}>Login with Google</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.signupContainer}>
           <Text style={styles.signupText}>Don't have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import UserContext from "../context/userContext";
+import Constants from "expo-constants";
 
 const SignUpScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext);
@@ -21,8 +22,10 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const api = axios.create({
-    baseURL: 'http://128.189.91.44:5000/api',
+    baseURL: `http://${Constants.expoConfig.extra.IP_ADDRESS}:5000/api`,
   });
+
+  // console.log(Constants.expoConfig.extra.IP_ADDRESS);
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
@@ -42,13 +45,16 @@ const SignUpScreen = ({ navigation }) => {
       console.log(response.data);
 
       if (response.data.success) {
-        setUser({email: email, username: username, userId: response.data.userId});
+        setUser({ userId: response.data.userId });
         navigation.navigate("ShareThought");
       } else {
         Alert.alert("Error", response.data.message);
       }
     } catch (error) {
-      console.log("API Error:", error.response ? error.response.data : error.message);
+      console.log(
+        "API Error:",
+        error.response ? error.response.data : error.message
+      );
       Alert.alert("Error", "Something went wrong. Please try again.");
     }
   };
@@ -90,7 +96,7 @@ const SignUpScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.getStartedButton}
           onPress={() => {
-            console.log('Button pressed');
+            console.log("Button pressed");
             handleSignUp();
             navigation.navigate("ShareThought");
           }}

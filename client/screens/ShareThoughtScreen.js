@@ -12,10 +12,11 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import UserContext from "../context/userContext";
+import Constants from "expo-constants";
 
 const ShareThoughtScreen = ({ navigation }) => {
   const api = axios.create({
-    baseURL: 'http://128.189.91.44:5000/api',
+    baseURL: `http://${Constants.expoConfig.extra.IP_ADDRESS}:5000/api`,
   });
 
   const { user, setUser } = useContext(UserContext);
@@ -26,6 +27,7 @@ const ShareThoughtScreen = ({ navigation }) => {
   const dailyPrompt = "Write about a memorable moment in your life.";
 
   const handleShareThought = async () => {
+    console.log(user.userId);
     try {
       const response = await api.post('/thoughts/create', {
         userId: user.userId,
