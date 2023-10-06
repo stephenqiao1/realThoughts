@@ -38,3 +38,13 @@ exports.deleteThought = async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 };
+
+exports.getRandomThoughts = async (req, res) => {
+    try {
+        const userId = req.query.userId;
+        const thoughts = await ThoughtModel.findRandomExcludingUser(userId);
+        res.status(200).json(thoughts)
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

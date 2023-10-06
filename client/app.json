@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "extra": {
-      "IP_ADDRESS": "128.189.91.221"
+      "IP_ADDRESS": "192.168.0.101"
     },
     "splash": {
       "image": "./assets/splash.png",

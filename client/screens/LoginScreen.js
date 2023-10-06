@@ -10,7 +10,6 @@ import {
   Alert
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import * as Google from 'expo-google-app-auth';
 import Constants from 'expo-constants';
 import UserContext from "../context/userContext";
 import axios from 'axios';
@@ -33,6 +32,7 @@ const LoginScreen = ({ navigation }) => {
       });
 
       if (response.data.success) {
+        console.log(response.data);
         setUser({ userId: response.data.userId});
         navigation.navigate('Feed');
       } else {

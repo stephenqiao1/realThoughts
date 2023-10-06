@@ -35,6 +35,16 @@ class ThoughtModel {
             throw error;
         }
     }
+
+    static async findRandomExcludingUser(userId, limit = 10) {
+        try {
+            const [rows] = await db.query('SELECT * FROM thoughts WHERE user_id != ? ORDER BY RAND() LIMIT ?', [userId, limit]);
+            console.log(rows);
+            return rows;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = ThoughtModel;
